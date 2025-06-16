@@ -36,6 +36,16 @@ namespace DevInterviewTask
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000") 
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
 
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
             var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
