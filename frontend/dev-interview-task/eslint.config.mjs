@@ -29,6 +29,15 @@ export default withNuxt(
             },
           },
         ],
+        "vue/singleline-html-element-content-newline": [
+          "error",
+          {
+            ignoreWhenNoAttributes: true,
+            ignoreWhenEmpty: true,
+            ignores: ["pre", "textarea", ...INLINE_ELEMENTS],
+            externalIgnores: [],
+          },
+        ],
         "ts/no-redeclare": "off",
         "ts/consistent-type-definitions": ["error", "type"],
         "no-console": ["warn"],
