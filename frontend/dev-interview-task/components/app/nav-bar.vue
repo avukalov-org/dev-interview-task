@@ -1,13 +1,22 @@
+<script lang="ts" setup>
+const { loggedIn, clear: clearSession } = useUserSession();
+
+async function logout() {
+  await clearSession();
+  await navigateTo("/");
+}
+</script>
+
 <template>
-  <div class="navbar bg-primary text-primary-content">
+  <div class="navbar bg-neutral text-primary-content">
     <div class="navbar-start">
-      <NuxtLink to="/" class="btn btn-ghost text-xl"
-        >Dev Interview Task</NuxtLink
-      >
+      <NuxtLink to="/" class="text-xl ml-4">DevInterviewTask</NuxtLink>
     </div>
     <div class="navbar-end">
       <AppThemeToggle />
-      <NuxtLink to="/" class="btn btn-accent">Sign in</NuxtLink>
+      <button v-if="loggedIn" @click="logout" class="btn btn-primary">
+        Logout
+      </button>
     </div>
   </div>
 </template>
