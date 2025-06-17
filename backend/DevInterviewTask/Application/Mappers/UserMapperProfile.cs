@@ -8,6 +8,7 @@ namespace DevInterviewTask.Application.Mappers
     {
         public UserMapperProfile()
         {
+            CreateMap<ExternalUserDto, User>();
             CreateMap<UserRegistrationDto, User>();
             CreateMap<User, UserEntity>();
             CreateMap<UserEntity, User>();

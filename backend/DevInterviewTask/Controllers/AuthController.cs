@@ -24,18 +24,17 @@ namespace DevInterviewTask.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginDto request)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto dto)
         {
-            // TODO: Check if user exists and pasword match
-            var isValid = await _authService.IsUserCredentialsValid(request.Email, request.Password);
+            var isValid = await _authService.IsUserCredentialsValid(dto.Email, dto.Password);
             if (!isValid)
             {
-                return BadRequest("Email or password is invalid.");
+                return BadRequest(new { message = "Invalid email or password."});
             }
 
-            var user = await _userService.GetUserByEmail(request.Email);
+            var user = await _userService.GetUserByEmail(dto.Email);
 
-            var jwt = await _authService.IssueJwt(user!, request.RemeberMe);
+            var jwt = await _authService.IssueJwt(user!, dto.RemeberMe);
 
             return Ok(new { token = jwt });
         }
@@ -44,19 +43,18 @@ namespace DevInterviewTask.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto dto)
         {
-            // Validate RegisterRequst
             var newUser = _mapper.Map<User>(dto);
 
             var existingUser = await _userService.GetUserByEmail(dto.Email);
 
             if (existingUser is not null)
             {
-                return BadRequest("Email already taken.");
+                return BadRequest(new { message = "Email already taken." });
             }
 
             if (!string.Equals(dto.Password, dto.ConfirmPassword))
             {
-                return BadRequest("Password and ConfirmPassword don't match.");
+                return BadRequest(new { message = "Password and confirm password don't match." });
             }
 
             newUser.PasswordHash = HashPassword(dto.Password);
@@ -68,6 +66,32 @@ namespace DevInterviewTask.Controllers
             var jwt = await _authService.IssueJwt(user!, false);
 
             return Ok(new { token = jwt });
+        }
+
+        [HttpPost("google")]
+        public async Task<IActionResult> GoogleLogin([FromBody] ExternalUserDto dto)
+        {
+            var existingUser = await _userService.GetUserByEmail(dto.Email);
+
+            // Ako se user registrirao s (istim) email + pass, nema veze... Preko Googla ce dobiti pristup bez pass jer je google trusted provider
+            // inace: if (existingUser is not null && existingUser.IsExternal) else BadRequest("Email is already taken.)
+            if (existingUser is not null)
+            {
+                var jwt = await _authService.IssueJwt(existingUser, true);
+
+                return Ok(new { token = jwt });
+            }
+
+            // Ako user ne postoji s tim emailom registriraj ga (bez passworda) - kasnije moze postaviti password kroz user settings - ako stignem
+            var newUser = _mapper.Map<User>(dto);
+
+            var userId = await _authService.RegisterUser(newUser);
+
+            var user = await _userService.GetUserById(userId);
+
+            var jwtt = await _authService.IssueJwt(user!, false);
+
+            return Ok(new { token = jwtt });
         }
 
         private string HashPassword(string password)

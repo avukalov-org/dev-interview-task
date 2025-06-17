@@ -34,12 +34,12 @@ namespace DevInterviewTask.Infrastructure.Users
             }
             catch (SqlException ex)
             {
-                _logger.LogError(ex, "Database error occurred while registering user.");
+                _logger.LogError(ex, "Database error occurred while getting user by email.");
                 throw new ApplicationException("There was a problem accessing the database.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unexpected error occurred while registering user.");
+                _logger.LogError(ex, "Unexpected error occurred while getting user by email.");
                 throw;
             }
         }
@@ -59,12 +59,12 @@ namespace DevInterviewTask.Infrastructure.Users
             }
             catch (SqlException ex)
             {
-                _logger.LogError(ex, "Database error occurred while registering user.");
+                _logger.LogError(ex, "Database error occurred while getting user by id.");
                 throw new ApplicationException("There was a problem accessing the database.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unexpected error occurred while registering user.");
+                _logger.LogError(ex, "Unexpected error occurred while getting user by id.");
                 throw;
             }
         }
@@ -72,8 +72,8 @@ namespace DevInterviewTask.Infrastructure.Users
         public async Task<Guid> Create(UserEntity entity)
         {
             var query = @"
-                    INSERT INTO Users (Id, FirstName, LastName, Email, PasswordHash)
-                    VALUES (@Id, @FirstName, @LastName, @Email, @PasswordHash);
+                    INSERT INTO Users (Id, FirstName, LastName, Email, PasswordHash, IsExternal, ExternalProvider)
+                    VALUES (@Id, @FirstName, @LastName, @Email, @PasswordHash, @IsExternal, @ExternalProvider);
                     ";
 
             try
@@ -84,12 +84,12 @@ namespace DevInterviewTask.Infrastructure.Users
             }
             catch (SqlException ex)
             {
-                _logger.LogError(ex, "Database error occurred while registering user.");
+                _logger.LogError(ex, "Database error occurred while creating user.");
                 throw new ApplicationException("There was a problem accessing the database.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unexpected error occurred while registering user.");
+                _logger.LogError(ex, "Unexpected error occurred while creating user.");
                 throw;
             }
 
