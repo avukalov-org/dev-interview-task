@@ -11,6 +11,16 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
   ],
   css: ["~/assets/css/main.css"],
+  runtimeConfig: {
+    // API_BASE_URL: process.env.API_BASE_URL,
+    MUX_TOKEN_ID: process.env.MUX_TOKEN_ID,
+    MUX_TOKEN_SECRET: process.env.MUX_TOKEN_SECRET,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    public: {
+      API_BASE_URL: process.env.API_BASE_URL,
+      STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -21,5 +31,10 @@ export default defineNuxtConfig({
   },
   colorMode: {
     dataValue: "theme",
+  },
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => ["mux-uploader", "mux-player"].includes(tag),
+    },
   },
 });

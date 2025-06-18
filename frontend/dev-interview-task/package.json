@@ -12,6 +12,9 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@mux/mux-node": "^11.1.0",
+    "@mux/mux-player": "^3.4.1",
+    "@mux/mux-uploader": "^1.2.0",
     "@nuxt/eslint": "^1.4.1",
     "@nuxt/icon": "^1.13.0",
     "@nuxtjs/color-mode": "^3.5.2",
@@ -22,6 +25,7 @@
     "nuxt": "^3.17.5",
     "nuxt-auth-utils": "^0.5.20",
     "tailwindcss": "^4.1.10",
+    "uuid": "^11.1.0",
     "vue": "^3.5.16",
     "vue-router": "^4.5.1"
   },

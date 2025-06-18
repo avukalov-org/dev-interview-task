@@ -1,6 +1,9 @@
-import { z } from "zod";
 import { jwtDecode } from "jwt-decode";
-import { AuthResponse, TokenPayload } from "~/types";
+import { z } from "zod";
+
+import type { AuthResponse, TokenPayload } from "~/types";
+
+const runtimeConfig = useRuntimeConfig();
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -11,11 +14,11 @@ const bodySchema = z.object({
 export default defineEventHandler(async (event) => {
   const { email, password, rememberMe } = await readValidatedBody(
     event,
-    bodySchema.parse
+    bodySchema.parse,
   );
 
   const res: AuthResponse = await $fetch(
-    process.env.AUTH_BASE_URL + "/api/auth/login",
+    `${runtimeConfig.public.API_BASE_URL}/api/auth/login`,
     {
       method: "POST",
       body: {
@@ -23,7 +26,7 @@ export default defineEventHandler(async (event) => {
         password,
         rememberMe,
       },
-    }
+    },
   );
 
   // TODO: Sredi response na serveru
@@ -34,7 +37,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  var payload = jwtDecode<TokenPayload>(res.token);
+  const payload = jwtDecode<TokenPayload>(res.token);
 
   await setUserSession(event, {
     user: {

@@ -27,39 +27,50 @@ async function login() {
       <fieldset
         class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
       >
-        <legend class="fieldset-legend">Login</legend>
+        <legend class="fieldset-legend">
+          Login
+        </legend>
 
-        <label class="label">Email</label>
+        <label class="label">
+          Email
+        </label>
         <input
           v-model="credentials.email"
           type="email"
           class="input"
           placeholder="Email"
-        />
+        >
 
-        <label class="label">Password</label>
+        <label class="label">
+          Password
+        </label>
         <input
           v-model="credentials.password"
           type="password"
           class="input"
           placeholder="Password"
-        />
+        >
 
         <label class="label mt-2">
           <input
-            @click="console.log(credentials.rememberMe)"
             v-model="credentials.rememberMe"
             type="checkbox"
             :checked="credentials.rememberMe"
             class="checkbox"
-          />
+          >
           Remember me
         </label>
 
-        <button class="btn btn-neutral mt-4">Login</button>
+        <button class="btn btn-neutral mt-4">
+          Login
+        </button>
       </fieldset>
     </form>
-    <NuxtLink to="/api/auth/google" external class="btn btn-primary">
+    <NuxtLink
+      to="/api/auth/google"
+      external
+      class="btn btn-primary"
+    >
       Login with Google <Icon name="tabler:brand-google-filled" size="18" />
     </NuxtLink>
   </div>

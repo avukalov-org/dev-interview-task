@@ -1,10 +1,13 @@
 import { jwtDecode } from "jwt-decode";
-import {
+
+import type {
   AuthResponse,
   GoogleTokenPayload,
   GoogleUserPayload,
   TokenPayload,
 } from "~/types";
+
+const runtimeConfig = useRuntimeConfig();
 
 export default defineOAuthGoogleEventHandler({
   config: {},
@@ -13,7 +16,7 @@ export default defineOAuthGoogleEventHandler({
     const googleTokens: GoogleTokenPayload = tokens;
 
     const res: AuthResponse = await $fetch(
-      process.env.AUTH_BASE_URL + "/api/auth/google",
+      `${runtimeConfig.public.API_BASE_URL}/api/auth/google`,
       {
         method: "POST",
         body: {
@@ -23,7 +26,7 @@ export default defineOAuthGoogleEventHandler({
           isExternal: true,
           externalProvider: "Google",
         },
-      }
+      },
     );
 
     if (res.token === undefined) {
@@ -33,7 +36,7 @@ export default defineOAuthGoogleEventHandler({
       });
     }
 
-    var payload = jwtDecode<TokenPayload>(res.token);
+    const payload = jwtDecode<TokenPayload>(res.token);
 
     await setUserSession(event, {
       user: {

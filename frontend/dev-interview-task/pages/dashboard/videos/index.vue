@@ -11,7 +11,7 @@ const runtimeConfig = useRuntimeConfig();
 const { session } = useUserSession();
 
 const { data: videos, status } = await useFetch<Video[]>(
-  `${runtimeConfig.public.API_BASE_URL}/api/videos`,
+  `${runtimeConfig.public.API_BASE_URL}/api/videos/user`,
   {
     lazy: true,
     onRequest({ options }) {
@@ -45,8 +45,8 @@ const { data: videos, status } = await useFetch<Video[]>(
         :key="video.id"
         class="mb-4 break-inside-avoid flex flex-row justify-center"
       >
-        <AppPremiumCard v-if="video.isPremium" :video="video" />
-        <AppCard v-else :video="video" />
+        <!-- <AppPremiumCard v-if="video.isPremium" :video="video" /> -->
+        <AppUserCard :video="video" />
       </div>
     </div>
   </div>

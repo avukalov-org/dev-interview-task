@@ -3,6 +3,42 @@ import antfu from "@antfu/eslint-config";
 // @ts-check
 import withNuxt from "./.nuxt/eslint.config.mjs";
 
+const INLINE_ELEMENTS = [
+  "a",
+  "abbr",
+  "acronym",
+  "b",
+  "bdo",
+  "big",
+  "br",
+  "button",
+  "cite",
+  "code",
+  "dfn",
+  "em",
+  "i",
+  "img",
+  "input",
+  "kbd",
+  "label",
+  "map",
+  "object",
+  "output",
+  "q",
+  "samp",
+  "script",
+  "select",
+  "small",
+  "span",
+  "strong",
+  "sub",
+  "sup",
+  "textarea",
+  "time",
+  "tt",
+  "var",
+];
+
 export default withNuxt(
   antfu(
     {
@@ -34,7 +70,7 @@ export default withNuxt(
           {
             ignoreWhenNoAttributes: true,
             ignoreWhenEmpty: true,
-            ignores: ["pre", "textarea", ...INLINE_ELEMENTS],
+            ignores: [INLINE_ELEMENTS],
             externalIgnores: [],
           },
         ],
