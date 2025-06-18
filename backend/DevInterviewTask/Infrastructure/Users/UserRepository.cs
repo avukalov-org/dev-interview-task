@@ -19,7 +19,7 @@ namespace DevInterviewTask.Infrastructure.Users
             _logger = logger;
         }
 
-        public async Task<UserEntity?> FindByEmail(string email)
+        public async Task<UserEntity?> FindByEmailAsync(string email)
         {
             const string query = @"
                 SELECT *
@@ -44,7 +44,7 @@ namespace DevInterviewTask.Infrastructure.Users
             }
         }
 
-        public async Task<UserEntity?> FindById(Guid id)
+        public async Task<UserEntity?> FindByIdAsync(Guid id)
         {
             const string query = @"
                 SELECT *
@@ -69,7 +69,7 @@ namespace DevInterviewTask.Infrastructure.Users
             }
         }
 
-        public async Task<Guid> Create(UserEntity entity)
+        public async Task<Guid> AddAsync(UserEntity entity)
         {
             var query = @"
                     INSERT INTO Users (Id, FirstName, LastName, Email, PasswordHash, IsExternal, ExternalProvider)

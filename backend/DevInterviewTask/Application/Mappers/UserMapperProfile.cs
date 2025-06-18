@@ -10,8 +10,7 @@ namespace DevInterviewTask.Application.Mappers
         {
             CreateMap<ExternalUserDto, User>();
             CreateMap<UserRegistrationDto, User>();
-            CreateMap<User, UserEntity>();
-            CreateMap<UserEntity, User>();
+            CreateMap<User, UserEntity>().ReverseMap();
             CreateMap<User, UserDto>();
 
         }

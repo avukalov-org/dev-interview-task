@@ -32,7 +32,7 @@ namespace DevInterviewTask.Controllers
                 return BadRequest(new { message = "Invalid email or password."});
             }
 
-            var user = await _userService.GetUserByEmail(dto.Email);
+            var user = await _userService.GetUserByEmailAsync(dto.Email);
 
             var jwt = await _authService.IssueJwt(user!, dto.RemeberMe);
 
@@ -45,7 +45,7 @@ namespace DevInterviewTask.Controllers
         {
             var newUser = _mapper.Map<User>(dto);
 
-            var existingUser = await _userService.GetUserByEmail(dto.Email);
+            var existingUser = await _userService.GetUserByEmailAsync(dto.Email);
 
             if (existingUser is not null)
             {
@@ -61,7 +61,7 @@ namespace DevInterviewTask.Controllers
 
             var userId = await _authService.RegisterUser(newUser);
 
-            var user = await _userService.GetUserById(userId);
+            var user = await _userService.GetUserByIdAsync(userId);
 
             var jwt = await _authService.IssueJwt(user!, false);
 
@@ -71,7 +71,7 @@ namespace DevInterviewTask.Controllers
         [HttpPost("google")]
         public async Task<IActionResult> GoogleLogin([FromBody] ExternalUserDto dto)
         {
-            var existingUser = await _userService.GetUserByEmail(dto.Email);
+            var existingUser = await _userService.GetUserByEmailAsync(dto.Email);
 
             // Ako se user registrirao s (istim) email + pass, nema veze... Preko Googla ce dobiti pristup bez pass jer je google trusted provider
             // inace: if (existingUser is not null && existingUser.IsExternal) else BadRequest("Email is already taken.)
@@ -87,7 +87,7 @@ namespace DevInterviewTask.Controllers
 
             var userId = await _authService.RegisterUser(newUser);
 
-            var user = await _userService.GetUserById(userId);
+            var user = await _userService.GetUserByIdAsync(userId);
 
             var jwtt = await _authService.IssueJwt(user!, false);
 

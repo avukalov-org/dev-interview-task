@@ -14,22 +14,22 @@ namespace DevInterviewTask.Infrastructure.Users
             _mapper = mapper;
         }
 
-        public async Task<Guid> Create(User user)
+        public async Task<Guid> AddAsync(User user)
         {
             var userEntity = _mapper.Map<UserEntity>(user);
-            return await _userRepository.Create(userEntity);
+            return await _userRepository.AddAsync(userEntity);
         }
 
-        public async Task<User?> GetUserByEmail(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            var userEntity = await _userRepository.FindByEmail(email);
+            var userEntity = await _userRepository.FindByEmailAsync(email);
 
             return _mapper.Map<User>(userEntity);
         }
 
-        public async Task<User?> GetUserById(Guid id)
+        public async Task<User?> GetUserByIdAsync(Guid id)
         {
-            var userEntity = await _userRepository.FindById(id);
+            var userEntity = await _userRepository.FindByIdAsync(id);
 
             return _mapper.Map<User>(userEntity);
         }

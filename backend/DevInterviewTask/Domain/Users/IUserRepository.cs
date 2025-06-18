@@ -2,10 +2,10 @@
 {
     public interface IUserRepository
     {
-        Task<Guid> Create(UserEntity entity);
+        Task<Guid> AddAsync(UserEntity entity);
 
-        Task<UserEntity?> FindById(Guid id);
+        Task<UserEntity?> FindByIdAsync(Guid id);
 
-        Task<UserEntity?> FindByEmail(string email);
+        Task<UserEntity?> FindByEmailAsync(string email);
     }
 }

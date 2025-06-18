@@ -22,12 +22,12 @@ namespace DevInterviewTask.Infrastructure.Auth
 
         public async Task<Guid> RegisterUser(User user)
         {
-            return await _userService.Create(user);
+            return await _userService.AddAsync(user);
         }
 
         public async Task<bool> IsUserCredentialsValid(string email, string password)
         {
-            var user = await _userService.GetUserByEmail(email);
+            var user = await _userService.GetUserByEmailAsync(email);
             if (user is null)
             {
                 return false;

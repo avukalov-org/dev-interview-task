@@ -1,8 +1,10 @@
 using DevInterviewTask.Domain.Users;
+using DevInterviewTask.Domain.Videos;
 using DevInterviewTask.Infrastructure;
 using DevInterviewTask.Infrastructure.Auth;
 using DevInterviewTask.Infrastructure.Configs;
 using DevInterviewTask.Infrastructure.Users;
+using DevInterviewTask.Infrastructure.Videos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
@@ -31,10 +33,13 @@ namespace DevInterviewTask
             
 
             // DI
-            builder.Services.AddSingleton<ApplicationDbContext>();
+            builder.Services.AddScoped<ApplicationDbContext>();
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IVideoRepository, VideoRepository>();
+            builder.Services.AddScoped<IVideoService, VideoService>();
 
             builder.Services.AddCors(options =>
             {
@@ -67,6 +72,7 @@ namespace DevInterviewTask
                         ValidAudience = jwtOptions!.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key))
                     };
+                    options.SaveToken = true;
                 });
 
             builder.Services.AddAuthorization();
@@ -80,9 +86,8 @@ namespace DevInterviewTask
                 app.MapOpenApi();
             }
 
-            app.UseHttpsRedirection();
-
-            
+            //app.UseHttpsRedirection();
+            app.UseCors("AllowFrontend");
 
             app.UseAuthentication();
             app.UseAuthorization();

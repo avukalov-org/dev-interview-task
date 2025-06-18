@@ -2,8 +2,8 @@
 {
     public interface IUserService
     {
-        Task<Guid> Create(User user);
-        Task<User?> GetUserByEmail(string email);
-        Task<User?> GetUserById(Guid id);
+        Task<Guid> AddAsync(User user);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByIdAsync(Guid id);
     }
 }

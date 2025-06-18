@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Application\Commands\" />
     <Folder Include="Application\Queries\" />
-    <Folder Include="Domain\Videos\" />
   </ItemGroup>
 
 </Project>
