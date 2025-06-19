@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: .
+    container_name: backend
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5039
+    volumes:
+      - ./appsettings.json:/app/appsettings.json
+      - ./appsettings.Development.json:/app/appsettings.Development.json
+    ports:
+      - "5039:5039"
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    hostname: sqlserver
+    restart: always
+    environment:
+      - SA_PASSWORD=PaSSW0rd123!
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - ~/volumes/sqlserver/data-dev:/var/opt/mssql
