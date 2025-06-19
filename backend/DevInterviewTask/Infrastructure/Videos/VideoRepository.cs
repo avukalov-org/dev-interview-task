@@ -112,25 +112,23 @@ namespace DevInterviewTask.Infrastructure.Videos
             }
         }
 
-
         public async Task UpdateAsync(VideoEntity entity)
         {
             const string query = @"
-                UPDATE Videos SET 
-                    Title = @Title, 
-                    IsPremium = @IsPremium, 
+                UPDATE Videos SET
+                    Title = @Title,
+                    IsPremium = @IsPremium,
                     Price = @Price,
-                    Currency = @Currency, 
-                    Status = @Status, 
+                    Currency = @Currency,
+                    Status = @Status,
                     UserId = @UserId,
-                    UploadId = @UploadId, 
-                    AssetId = @AssetId, 
+                    UploadId = @UploadId,
+                    AssetId = @AssetId,
                     PlaybackId = @PlaybackId
                 WHERE Id = @Id;";
 
             try
             {
-                
                 using var conn = _context.CreateConnection();
                 var affected = await conn.ExecuteAsync(query, entity);
                 _logger.LogInformation("Update affected {Count} rows for video ID {Id}", affected, entity.Id);
@@ -145,7 +143,6 @@ namespace DevInterviewTask.Infrastructure.Videos
                 _logger.LogError(ex, "Unexpected error occurred while updating video.");
                 throw;
             }
-            
         }
 
         public async Task DeleteAsync(Guid id)
@@ -171,6 +168,5 @@ namespace DevInterviewTask.Infrastructure.Videos
                 throw;
             }
         }
-
     }
 }

@@ -2,8 +2,6 @@
 using DevInterviewTask.Application.DTOs;
 using DevInterviewTask.Domain.Users;
 using DevInterviewTask.Infrastructure.Auth;
-using DevInterviewTask.Infrastructure.Users;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevInterviewTask.Controllers
@@ -29,7 +27,7 @@ namespace DevInterviewTask.Controllers
             var isValid = await _authService.IsUserCredentialsValid(dto.Email, dto.Password);
             if (!isValid)
             {
-                return BadRequest(new { message = "Invalid email or password."});
+                return BadRequest(new { message = "Invalid email or password." });
             }
 
             var user = await _userService.GetUserByEmailAsync(dto.Email);
@@ -38,7 +36,6 @@ namespace DevInterviewTask.Controllers
 
             return Ok(new { token = jwt });
         }
-
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto dto)

@@ -12,7 +12,6 @@ namespace DevInterviewTask.Application.Mappers
             CreateMap<UserRegistrationDto, User>();
             CreateMap<User, UserEntity>().ReverseMap();
             CreateMap<User, UserDto>();
-
         }
     }
 }

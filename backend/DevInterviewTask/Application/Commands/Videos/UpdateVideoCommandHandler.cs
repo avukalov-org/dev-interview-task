@@ -9,7 +9,6 @@ namespace DevInterviewTask.Application.Commands.Videos
         private readonly IVideoService _videoService;
         private readonly IMapper _mapper;
 
-
         public UpdateVideoCommandHandler(IVideoService videoService, IMapper mapper)
         {
             _videoService = videoService;

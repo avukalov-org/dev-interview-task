@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DevInterviewTask.Domain.Videos;
+﻿using DevInterviewTask.Domain.Videos;
 using MediatR;
 
 namespace DevInterviewTask.Application.Commands.Videos
@@ -7,7 +6,6 @@ namespace DevInterviewTask.Application.Commands.Videos
     public class DeleteVideoCommandHandler : IRequestHandler<DeleteVideoCommand, Unit>
     {
         private readonly IVideoService _videoService;
-
 
         public DeleteVideoCommandHandler(IVideoService videoService)
         {

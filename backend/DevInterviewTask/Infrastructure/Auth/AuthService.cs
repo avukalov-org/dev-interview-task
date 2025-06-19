@@ -10,7 +10,6 @@ namespace DevInterviewTask.Infrastructure.Auth
 {
     public class AuthService : IAuthService
     {
-
         private readonly IUserService _userService;
         private readonly JwtOptions _jwtOptions;
 

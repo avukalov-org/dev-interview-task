@@ -2,7 +2,6 @@
 using DevInterviewTask.Domain.Payments;
 using DevInterviewTask.Domain.Videos;
 
-
 namespace DevInterviewTask.Infrastructure.Videos
 {
     public class VideoService : IVideoService
@@ -41,9 +40,7 @@ namespace DevInterviewTask.Infrastructure.Videos
             }
 
             return videos;
-
         }
-
 
         public async Task<Video?> FindByIdAsync(Guid id)
         {
@@ -64,12 +61,11 @@ namespace DevInterviewTask.Infrastructure.Videos
             var newEntity = _mapper.Map<VideoEntity>(video);
 
             var oldEntity = await _videoRepository.FindByIdAsync(video.Id);
-            
+
             _mapper.Map(newEntity, oldEntity);
 
             await _videoRepository.UpdateAsync(oldEntity!);
         }
-
 
         public async Task DeleteAsync(Guid id)
         {

@@ -48,7 +48,7 @@ namespace DevInterviewTask.Controllers
                                 .GetProperty("meta")
                                 .GetProperty("external_id")
                                 .GetGuid();
-            
+
             await _mediator.Send(new DeleteVideoCommand(externalId));
         }
 

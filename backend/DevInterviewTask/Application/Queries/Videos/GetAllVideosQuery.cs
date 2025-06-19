@@ -5,7 +5,7 @@ namespace DevInterviewTask.Application.Queries.Videos
 {
     public class GetAllVideosQuery : IRequest<List<Video>>
     {
-        // TODO: Add filter parameters 
+        // TODO: Add filter parameters
 
         public Guid UserId { get; set; }
 

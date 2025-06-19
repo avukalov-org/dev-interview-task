@@ -8,9 +8,7 @@ using DevInterviewTask.Infrastructure.Payments;
 using DevInterviewTask.Infrastructure.Users;
 using DevInterviewTask.Infrastructure.Videos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Text;
 
@@ -32,7 +30,6 @@ namespace DevInterviewTask
             {
                 cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
             });
-            
 
             // DI
             builder.Services.AddScoped<ApplicationDbContext>();
@@ -49,12 +46,11 @@ namespace DevInterviewTask
             {
                 options.AddPolicy("AllowFrontend", policy =>
                 {
-                    policy.WithOrigins("http://localhost:3000") 
+                    policy.WithOrigins("http://localhost:3000")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
             });
-
 
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
             var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
@@ -80,7 +76,6 @@ namespace DevInterviewTask
                 });
 
             builder.Services.AddAuthorization();
-
 
             var app = builder.Build();
 

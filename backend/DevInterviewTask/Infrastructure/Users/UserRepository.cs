@@ -1,8 +1,5 @@
-﻿using Azure.Core;
-using Dapper;
-using DevInterviewTask.Application.DTOs;
+﻿using Dapper;
 using DevInterviewTask.Domain.Users;
-using MediatR;
 using Microsoft.Data.SqlClient;
 using static Dapper.SqlMapper;
 

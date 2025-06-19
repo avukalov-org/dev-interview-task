@@ -1,6 +1,5 @@
 ﻿using DevInterviewTask.Application.Commands.Payments;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevInterviewTask.Controllers
@@ -15,7 +14,6 @@ namespace DevInterviewTask.Controllers
         {
             _mediator = mediator;
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] AddPaymentCommand command)

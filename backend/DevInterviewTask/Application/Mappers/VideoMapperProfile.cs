@@ -8,15 +8,12 @@ namespace DevInterviewTask.Application.Mappers
     {
         public VideoMapperProfile()
         {
-
             CreateMap<AddVideoCommand, Video>();
 
             CreateMap<UpdateVideoCommand, Video>().ReverseMap();
             CreateMap<Video, VideoEntity>().ReverseMap();
 
             CreateMap<VideoEntity, VideoEntity>();
-
-
         }
     }
 }

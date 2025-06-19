@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using DevInterviewTask.Domain.Payments;
-using DevInterviewTask.Domain.Videos;
 using DevInterviewTask.Infrastructure.Videos;
 using Microsoft.Data.SqlClient;
 

@@ -16,7 +16,6 @@ namespace DevInterviewTask.Controllers
     {
         private readonly IMediator _mediator;
 
-
         public VideosController(IMediator mediator)
         {
             _mediator = mediator;
@@ -54,7 +53,7 @@ namespace DevInterviewTask.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var videos = await _mediator.Send(new GetUserVideosQuery(Guid.Parse(userId!)));
-            
+
             return Ok(videos);
         }
 
@@ -75,7 +74,7 @@ namespace DevInterviewTask.Controllers
         public async Task<IActionResult> Put([FromBody] UpdateVideoCommand command)
         {
             await _mediator.Send(command);
-            
+
             return NoContent();
         }
 
