@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace DevInterviewTask.Application.Commands
+namespace DevInterviewTask.Application.Commands.Videos
 {
-    public class UpdateVideoCommand : IRequest<Unit>
+    public class AddVideoCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
         public required string Title { get; set; }

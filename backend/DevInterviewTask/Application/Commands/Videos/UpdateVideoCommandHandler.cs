@@ -2,7 +2,7 @@
 using DevInterviewTask.Domain.Videos;
 using MediatR;
 
-namespace DevInterviewTask.Application.Commands
+namespace DevInterviewTask.Application.Commands.Videos
 {
     public class UpdateVideoCommandHandler : IRequestHandler<UpdateVideoCommand, Unit>
     {
@@ -21,7 +21,7 @@ namespace DevInterviewTask.Application.Commands
             var video = _mapper.Map<Video>(request);
 
             await _videoService.UpadateAsync(video);
-            
+
             return Unit.Value;
         }
     }

@@ -1,7 +1,7 @@
 ﻿using DevInterviewTask.Domain.Videos;
 using MediatR;
 
-namespace DevInterviewTask.Application.Queries
+namespace DevInterviewTask.Application.Queries.Videos
 {
     public class GetUserVideosQueryHandler : IRequestHandler<GetUserVideosQuery, List<Video>>
     {

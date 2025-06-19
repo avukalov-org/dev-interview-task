@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DevInterviewTask.Application.Commands
+namespace DevInterviewTask.Application.Commands.Videos
 {
     public class DeleteVideoCommand : IRequest<Unit>
     {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevInterviewTask.Domain.Payments;
 using DevInterviewTask.Domain.Videos;
 
 
@@ -7,12 +8,15 @@ namespace DevInterviewTask.Infrastructure.Videos
     public class VideoService : IVideoService
     {
         private readonly IVideoRepository _videoRepository;
+        private readonly IPaymentService _paymentService;
         private readonly IMapper _mapper;
 
-        public VideoService(IVideoRepository videoRepository, IMapper mapper)
+        public VideoService(IVideoRepository videoRepository, IMapper mapper, IPaymentService paymentService)
         {
             _videoRepository = videoRepository;
+
             _mapper = mapper;
+            _paymentService = paymentService;
         }
 
         public async Task<Guid> AddAsync(Video video)
@@ -21,11 +25,23 @@ namespace DevInterviewTask.Infrastructure.Videos
             return await _videoRepository.AddAsync(videoEntity);
         }
 
-        public async Task<List<Video>> FindAsync()
+        public async Task<List<Video>> FindAsync(Guid userId)
         {
             var videoEntities = await _videoRepository.FindAsync();
 
-            return _mapper.Map<List<Video>>(videoEntities);
+            var videos = _mapper.Map<List<Video>>(videoEntities);
+
+            var paidVideos = await _paymentService.FindByUserIdAsync(userId);
+
+            var paidVideoIds = new HashSet<Guid>(paidVideos.Select(p => p.VideoId));
+
+            foreach (var video in videos)
+            {
+                video.isPurchased = paidVideoIds.Contains(video.Id);
+            }
+
+            return videos;
+
         }
 
 

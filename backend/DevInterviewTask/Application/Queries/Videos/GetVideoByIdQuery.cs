@@ -1,11 +1,11 @@
 ﻿using DevInterviewTask.Domain.Videos;
 using MediatR;
 
-namespace DevInterviewTask.Application.Queries
+namespace DevInterviewTask.Application.Queries.Videos
 {
-    public class GetUserVideosQuery : IRequest<List<Video>>
+    public class GetVideoByIdQuery : IRequest<Video?>
     {
-        public GetUserVideosQuery(Guid id)
+        public GetVideoByIdQuery(Guid id)
         {
             Id = id;
         }

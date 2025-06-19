@@ -1,7 +1,7 @@
 ﻿using DevInterviewTask.Domain.Videos;
 using MediatR;
 
-namespace DevInterviewTask.Application.Queries
+namespace DevInterviewTask.Application.Queries.Videos
 {
     public class GetAllVideosQueryHandler : IRequestHandler<GetAllVideosQuery, List<Video>>
     {
@@ -14,7 +14,7 @@ namespace DevInterviewTask.Application.Queries
 
         public async Task<List<Video>> Handle(GetAllVideosQuery request, CancellationToken cancellationToken)
         {
-            return await _videoService.FindAsync();
+            return await _videoService.FindAsync(request.UserId);
         }
     }
 }

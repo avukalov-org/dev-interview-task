@@ -1,5 +1,5 @@
-﻿using DevInterviewTask.Application.Commands;
-using DevInterviewTask.Application.Queries;
+﻿using DevInterviewTask.Application.Commands.Videos;
+using DevInterviewTask.Application.Queries.Videos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,9 @@ namespace DevInterviewTask.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var videos = await _mediator.Send(new GetAllVideosQuery());
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var videos = await _mediator.Send(new GetAllVideosQuery(Guid.Parse(userId!)));
 
             return Ok(videos);
         }

@@ -12,5 +12,6 @@
         public string? UploadId { get; set; }
         public string? AssetId { get; set; }
         public string? PlaybackId { get; set; }
+        public bool isPurchased { get; set; } = false;
     }
 }

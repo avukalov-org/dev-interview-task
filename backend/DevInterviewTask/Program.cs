@@ -1,8 +1,10 @@
+using DevInterviewTask.Domain.Payments;
 using DevInterviewTask.Domain.Users;
 using DevInterviewTask.Domain.Videos;
 using DevInterviewTask.Infrastructure;
 using DevInterviewTask.Infrastructure.Auth;
 using DevInterviewTask.Infrastructure.Configs;
+using DevInterviewTask.Infrastructure.Payments;
 using DevInterviewTask.Infrastructure.Users;
 using DevInterviewTask.Infrastructure.Videos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +42,8 @@ namespace DevInterviewTask
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IVideoRepository, VideoRepository>();
             builder.Services.AddScoped<IVideoService, VideoService>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
             builder.Services.AddCors(options =>
             {

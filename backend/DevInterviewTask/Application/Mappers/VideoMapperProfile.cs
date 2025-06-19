@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DevInterviewTask.Application.Commands;
+using DevInterviewTask.Application.Commands.Videos;
 using DevInterviewTask.Domain.Videos;
 
 namespace DevInterviewTask.Application.Mappers

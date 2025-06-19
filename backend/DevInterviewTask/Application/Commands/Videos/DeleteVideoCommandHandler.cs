@@ -2,7 +2,7 @@
 using DevInterviewTask.Domain.Videos;
 using MediatR;
 
-namespace DevInterviewTask.Application.Commands
+namespace DevInterviewTask.Application.Commands.Videos
 {
     public class DeleteVideoCommandHandler : IRequestHandler<DeleteVideoCommand, Unit>
     {
@@ -12,7 +12,7 @@ namespace DevInterviewTask.Application.Commands
         public DeleteVideoCommandHandler(IVideoService videoService)
         {
             _videoService = videoService;
-        } 
+        }
 
         public async Task<Unit> Handle(DeleteVideoCommand request, CancellationToken cancellationToken)
         {

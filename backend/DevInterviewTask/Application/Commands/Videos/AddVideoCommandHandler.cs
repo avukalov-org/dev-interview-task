@@ -2,7 +2,7 @@
 using DevInterviewTask.Domain.Videos;
 using MediatR;
 
-namespace DevInterviewTask.Application.Commands
+namespace DevInterviewTask.Application.Commands.Videos
 {
     public class AddVideoCommandHandler : IRequestHandler<AddVideoCommand, Guid>
     {

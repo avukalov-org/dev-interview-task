@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using DevInterviewTask.Application.Commands;
-using DevInterviewTask.Application.DTOs;
-using DevInterviewTask.Application.Queries;
-using DevInterviewTask.Domain.Videos;
+using DevInterviewTask.Application.Commands.Videos;
+using DevInterviewTask.Application.Queries.Videos;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
