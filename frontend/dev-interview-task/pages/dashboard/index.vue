@@ -2,13 +2,14 @@
 import type { Video } from "types";
 
 import "@mux/mux-player";
+import type { User } from "#auth-utils";
 
 definePageMeta({
   layout: "dashboard",
   middleware: ["authenticated"],
 });
 const runtimeConfig = useRuntimeConfig();
-const { session } = useUserSession();
+const { user, session } = useUserSession();
 
 const { data: videos, status } = await useFetch<Video[]>(
   `${runtimeConfig.public.API_BASE_URL}/api/videos`,
@@ -22,6 +23,11 @@ const { data: videos, status } = await useFetch<Video[]>(
     },
   }
 );
+
+watch(videos, console.log);
+
+const checkPremium = (video: Video) =>
+  video.isPremium && video.userId !== user.value.id && !video.isPurchased;
 </script>
 
 <template>
@@ -32,20 +38,19 @@ const { data: videos, status } = await useFetch<Video[]>(
       </NuxtLink>
     </div>
 
+    <div v-if="status === 'pending'">
+      <span class="loading loading-spinner loading-xl" />
+    </div>
     <div
+      v-else
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4"
     >
-      <span
-        v-if="status === 'pending'"
-        class="loading loading-spinner loading-xl"
-      />
       <div
         v-for="video in videos"
-        v-else
         :key="video.id"
         class="mb-4 break-inside-avoid flex flex-row justify-center"
       >
-        <AppPremiumCard v-if="video.isPremium" :video="video" />
+        <AppPremiumCard v-if="checkPremium(video)" :video="video" />
         <AppCard v-else :video="video" />
       </div>
     </div>

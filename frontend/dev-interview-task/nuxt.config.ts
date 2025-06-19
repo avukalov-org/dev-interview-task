@@ -9,16 +9,33 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "nuxt-auth-utils",
+    "@unlok-co/nuxt-stripe",
   ],
   css: ["~/assets/css/main.css"],
   runtimeConfig: {
     // API_BASE_URL: process.env.API_BASE_URL,
     MUX_TOKEN_ID: process.env.MUX_TOKEN_ID,
     MUX_TOKEN_SECRET: process.env.MUX_TOKEN_SECRET,
-    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     public: {
+      NUXT_BASE_URL: process.env.NUXT_BASE_URL,
       API_BASE_URL: process.env.API_BASE_URL,
-      STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+    },
+  },
+  stripe: {
+    // Server
+    server: {
+      key: process.env.STRIPE_SECRET_KEY,
+      options: {
+        // your api options override for stripe server side
+        // https://github.com/stripe/stripe-node?tab=readme-ov-file#configuration
+      },
+      // CLIENT
+    },
+    client: {
+      key: process.env.STRIPE_PUBLIC_KEY,
+      // manualClientLoad: true, // if you want to have control where you are going to load the client
+      // your api options override for stripe client side https://stripe.com/docs/js/initializing#init_stripe_js-options
+      options: {},
     },
   },
   vite: {

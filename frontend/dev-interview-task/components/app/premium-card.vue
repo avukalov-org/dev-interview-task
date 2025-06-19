@@ -25,7 +25,11 @@ const { video } = defineProps<{
 
       <div class="card-actions justify-between items-center">
         <h3>Price: {{ video.price }} {{ video.currency }}</h3>
-        <button class="btn btn-primary">Buy Now</button>
+        <NuxtLink
+          :to="{ name: 'dashboard-purchase-id', params: { id: video.id } }"
+          class="btn btn-primary"
+          >Buy Now</NuxtLink
+        >
       </div>
     </div>
   </div>

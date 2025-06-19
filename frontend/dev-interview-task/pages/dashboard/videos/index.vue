@@ -31,17 +31,15 @@ const { data: videos, status } = await useFetch<Video[]>(
         <Icon name="tabler:video-plus" size="24" class="mr-2" /> Add new Video
       </NuxtLink>
     </div>
-
+    <div v-if="status === 'pending'">
+      <span class="loading loading-spinner loading-xl" />
+    </div>
     <div
+      v-else
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4"
     >
-      <span
-        v-if="status === 'pending'"
-        class="loading loading-spinner loading-xl"
-      />
       <div
         v-for="video in videos"
-        v-else
         :key="video.id"
         class="mb-4 break-inside-avoid flex flex-row justify-center"
       >

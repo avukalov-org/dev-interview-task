@@ -3,7 +3,7 @@ declare module "#auth-utils" {
   type User = {
     // Add your own fields
     id: string;
-    name: string;
+    fullName: string;
     firstName: string;
     lastName: string;
     email: string;
