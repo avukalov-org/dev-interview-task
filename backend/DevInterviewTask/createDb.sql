@@ -1,0 +1,41 @@
+CREATE TABLE Users (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    FirstName NVARCHAR(100) NOT NULL,
+    LastName NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(200) NOT NULL,
+    PasswordHash NVARCHAR(200) NULL,  -- nullable zbog Google OAuth
+    IsExternal BIT NOT NULL DEFAULT 0,
+    ExternalProvider NVARCHAR(100) NULL
+);
+
+CREATE UNIQUE INDEX IX_Users_Email ON Users(Email);
+
+CREATE TABLE Videos (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    Title NVARCHAR(255) NOT NULL,
+    IsPremium BIT NOT NULL,
+    Price FLOAT NOT NULL,
+    Currency NVARCHAR(10) NOT NULL,
+    Status NVARCHAR(50) NOT NULL,
+    UserId UNIQUEIDENTIFIER NOT NULL,
+    UploadId NVARCHAR(100) NULL,
+    AssetId NVARCHAR(100) NULL,
+    PlaybackId NVARCHAR(100) NULL,
+    
+    CONSTRAINT FK_Videos_Users FOREIGN KEY (UserId) REFERENCES Users(Id)
+);
+
+CREATE INDEX IX_Videos_UserId ON Videos(UserId);
+
+CREATE TABLE UserPayments (
+    Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    UserId UNIQUEIDENTIFIER NOT NULL,
+    VideoId UNIQUEIDENTIFIER NOT NULL,
+    PurchaseAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+
+    CONSTRAINT FK_UserPayments_Users FOREIGN KEY (UserId) REFERENCES Users(Id),
+    CONSTRAINT FK_UserPayments_Videos FOREIGN KEY (VideoId) REFERENCES Videos(Id) ON DELETE CASCADE
+);
+
+CREATE INDEX IX_UserPayments_UserId ON UserPayments(UserId);
+CREATE INDEX IX_UserPayments_VideoId ON UserPayments(VideoId);
