@@ -17,10 +17,10 @@ const { data: videos, status } = await useFetch<Video[]>(
     onRequest({ options }) {
       options.headers.set(
         "Authorization",
-        `Bearer ${session.value.session.accessToken}`
+        `Bearer ${session.value.session.accessToken}`,
       );
     },
-  }
+  },
 );
 </script>
 
@@ -28,7 +28,11 @@ const { data: videos, status } = await useFetch<Video[]>(
   <div class="flex flex-col h-full w-full p-4 gap-4">
     <div class="flex flex-row justify-end w-full">
       <NuxtLink to="/dashboard/videos/create" class="btn btn-primary">
-        <Icon name="tabler:video-plus" size="24" class="mr-2" /> Add new Video
+        <Icon
+          name="tabler:video-plus"
+          size="24"
+          class="mr-2"
+        /> Add new Video
       </NuxtLink>
     </div>
     <div v-if="status === 'pending'">

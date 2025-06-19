@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import { getMux } from "./utils";
 
 export default defineEventHandler(async (event) => {

@@ -21,15 +21,23 @@ const { video } = defineProps<{
       <div class="flex flex-row gap-4 justify-end">
         <NuxtLink
           :to="{ name: 'dashboard-videos-update-id', params: { id: video.id } }"
-          ><Icon name="tabler:edit" size="24"
-        /></NuxtLink>
+        >
+          <Icon
+            name="tabler:edit"
+            size="24"
+          />
+        </NuxtLink>
         <NuxtLink
           :to="{
             name: 'dashboard-videos-delete-id',
             params: { id: video.assetId },
           }"
         >
-          <Icon name="tabler:trash" class="text-error" size="24" />
+          <Icon
+            name="tabler:trash"
+            class="text-error"
+            size="24"
+          />
         </NuxtLink>
       </div>
     </div>

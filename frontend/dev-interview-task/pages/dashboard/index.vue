@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import type { Video } from "types";
-
 import "@mux/mux-player";
-import type { User } from "#auth-utils";
+
+import type { Video } from "types";
 
 definePageMeta({
   layout: "dashboard",
@@ -18,23 +17,28 @@ const { data: videos, status } = await useFetch<Video[]>(
     onRequest({ options }) {
       options.headers.set(
         "Authorization",
-        `Bearer ${session.value.session.accessToken}`
+        `Bearer ${session.value.session.accessToken}`,
       );
     },
-  }
+  },
 );
 
 watch(videos, console.log);
 
-const checkPremium = (video: Video) =>
-  video.isPremium && video.userId !== user.value.id && !video.isPurchased;
+function checkPremium(video: Video) {
+  return video.isPremium && video.userId !== user.value.id && !video.isPurchased;
+}
 </script>
 
 <template>
   <div class="flex flex-col h-full w-full p-4 gap-4">
     <div class="flex flex-row justify-end w-full">
       <NuxtLink to="/dashboard/videos/create" class="btn btn-primary">
-        <Icon name="tabler:video-plus" size="24" class="mr-2" /> Add new Video
+        <Icon
+          name="tabler:video-plus"
+          size="24"
+          class="mr-2"
+        /> Add new Video
       </NuxtLink>
     </div>
 

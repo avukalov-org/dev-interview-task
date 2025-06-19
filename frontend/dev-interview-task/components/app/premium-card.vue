@@ -28,15 +28,16 @@ const { video } = defineProps<{
         <NuxtLink
           :to="{ name: 'dashboard-purchase-id', params: { id: video.id } }"
           class="btn btn-primary"
-          >Buy Now</NuxtLink
         >
+          Buy Now
+        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
-<!-- 
+<!--
 ako je kupljeno stavi ako nije nemoj staviti
-:playback-id="video.playbackId" 
+:playback-id="video.playbackId"
 
 -->

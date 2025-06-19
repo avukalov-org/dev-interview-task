@@ -51,7 +51,7 @@ export default defineNuxtConfig({
   },
   vue: {
     compilerOptions: {
-      isCustomElement: (tag) => ["mux-uploader", "mux-player"].includes(tag),
+      isCustomElement: tag => ["mux-uploader", "mux-player"].includes(tag),
     },
   },
 });

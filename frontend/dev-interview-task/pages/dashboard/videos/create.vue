@@ -37,7 +37,7 @@ async function getUploadContext() {
         creatorId: user.value.id,
         externalId: metadata.id,
       },
-    }
+    },
   );
 
   uploadMeta.uploadId = res.id;
@@ -63,7 +63,11 @@ function onUploadSuccess() {
   <div class="flex flex-col h-full w-full p-4 gap-4">
     <div class="flex flex-row">
       <NuxtLink to="/dashboard/videos" class="btn btn-primary">
-        <Icon name="tabler:arrow-big-left-filled" size="24" class="mr-2" />
+        <Icon
+          name="tabler:arrow-big-left-filled"
+          size="24"
+          class="mr-2"
+        />
         Back
       </NuxtLink>
     </div>
@@ -79,15 +83,17 @@ function onUploadSuccess() {
             type="text"
             class="input"
             placeholder="Type your title here"
-          />
-          <legend class="fieldset-legend">Is the video premium?</legend>
+          >
+          <legend class="fieldset-legend">
+            Is the video premium?
+          </legend>
           <label class="label">
             <input
               v-model="metadata.isPremium"
               type="checkbox"
               :checked="metadata.isPremium"
               class="checkbox checkbox-sm"
-            />
+            >
             Premium
           </label>
           <div v-if="metadata.isPremium" class="flex flex-col">
@@ -99,8 +105,10 @@ function onUploadSuccess() {
               type="text"
               class="input"
               placeholder="Type your price here"
-            />
-            <legend class="fieldset-legend">What currency you prefer?</legend>
+            >
+            <legend class="fieldset-legend">
+              What currency you prefer?
+            </legend>
             <select v-model="metadata.currency" class="select">
               <option value="eur" selected>Eur</option>
               <option value="usd">Usd</option>

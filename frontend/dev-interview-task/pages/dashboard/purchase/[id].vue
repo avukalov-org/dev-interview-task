@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type { Video } from "types";
 import type { Stripe, StripeElements } from "@stripe/stripe-js";
+
+import type { Video } from "types";
 
 definePageMeta({
   layout: "dashboard",
@@ -19,10 +20,10 @@ const { data: video } = await useFetch<Video>(
     onRequest({ options }) {
       options.headers.set(
         "Authorization",
-        `Bearer ${session.value.session.accessToken}`
+        `Bearer ${session.value.session.accessToken}`,
       );
     },
-  }
+  },
 );
 
 const { loadStripe } = useClientStripe();
@@ -48,7 +49,7 @@ watch(
             currency: video.value?.currency,
             price: video.value?.price,
           },
-        }
+        },
       );
       if (error) {
         console.error(error);
@@ -64,13 +65,13 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 
 const isProcessing = ref(false);
 const errorMessage = ref<string | null>(null);
 
-const pay = async () => {
+async function pay() {
   isProcessing.value = true;
 
   try {
@@ -91,21 +92,23 @@ const pay = async () => {
       console.error("Payment error:", error);
       errorMessage.value = error.message || null;
       isProcessing.value = false;
-    } else {
+    }
+    else {
       savePayment();
       isProcessing.value = false;
 
       // Handle post-payment success actions, like showing a success message
       // TODO: Notify server about purchase
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Payment processing error:", error);
     errorMessage.value = "An error occurred. Please try again.";
     isProcessing.value = false;
   }
-};
+}
 
-const savePayment = async () => {
+async function savePayment() {
   $fetch(`${runtimeConfig.public.API_BASE_URL}/api/payments`, {
     method: "POST",
     body: {
@@ -116,14 +119,16 @@ const savePayment = async () => {
     alert("Payment succeeded");
     router.push("/dashboard");
   });
-};
+}
 </script>
 
 <template>
   <div class="flex flex-col w-full h-full">
     <div class="flex flex-col w-full md:w-1/2 lg:w-1/3 self-start gap-4 px-4">
-      <h1 class="text-2xl font-bold">Purchase Video: {{ video?.title }}</h1>
-      <form @submit.prevent="pay" class="flex flex-col">
+      <h1 class="text-2xl font-bold">
+        Purchase Video: {{ video?.title }}
+      </h1>
+      <form class="flex flex-col" @submit.prevent="pay">
         <div id="paymentElement" />
         <button class="btn btn-primary mt-4 self-end">Pay Now</button>
         <p
